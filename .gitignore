@@ -1,0 +1,3 @@
+target/
+*.parquet
+*.parquet # if you have data files
