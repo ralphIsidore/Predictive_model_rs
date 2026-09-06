@@ -1,3 +1,16 @@
-target/
-*.parquet
-*.parquet # if you have data files
+# Rust build artifacts
+/target/
+**/target/
+*.rs.bk
+*.pdb
+
+# MacOS
+.DS_Store
+
+# Your specific backups
+classical-ml-backup/
+data-pipeline-backup/
+**/*-backup/
+
+# Optional: Cargo.lock (comment out if you're building binaries)
+# Cargo.lock
