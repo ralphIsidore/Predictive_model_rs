@@ -14,3 +14,4 @@ data-pipeline-backup/
 
 # Optional: Cargo.lock (comment out if you're building binaries)
 # Cargo.lock
+data/
