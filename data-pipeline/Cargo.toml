@@ -8,5 +8,6 @@ thiserror = { workspace = true }
 ndarray  = { workspace = true } 
 rayon  = { workspace = true } 
 serde = { workspace = true } 
+polars = {workspace=true}
 
 

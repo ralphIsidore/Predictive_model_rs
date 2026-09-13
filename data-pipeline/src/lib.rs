@@ -1,7 +1,13 @@
+pub mod loader; 
+pub mod transforms; 
+// pub mod pipeline; 
+
+
 use ndarray::Array1; 
 use rayon::prelude::*; 
 use serde::{Deserialize, Serialize};
 use thiserror::Error; 
+
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TransactionRecord{
@@ -24,6 +30,14 @@ pub enum PipelineError {
     #[error("IO error:{0}")]
     
         Io(#[from]std::io::Error),
+
+        #[error("Polars error:{0}")]
+        Polars(#[from] polars::error::PolarsError), 
+
+        #[error("Schema error: expected column '{0}' not found")
+        ] 
+        MissingColomn(String)
+        
 }
 
 pub fn normalize_prices(prices:&[f64])->Result<Array1<f64>, PipelineError>{
