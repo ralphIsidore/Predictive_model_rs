@@ -36,3 +36,19 @@ pub fn extract_data_features(lf:LazyFrame) -> LazyFrame {
 .with_column(col("invoice_datetime").dt().weekday().alias("day_of_week"))
 
 }
+
+pub fn build_customer_feature(lf:LazyFrame) -> Result <DataFrame, PipelineError>{
+    let customer_df = lf.group_by([col("Customer ID")]).agg([
+        col("revenue").sum().alias("total_revenue"), 
+        col("Invoice").n_unique().alias("num_invoices"), 
+        col("Quantity").sum().alias("total_quantity"), 
+        (col("revenue").sum()/col("Invoice").n_unique()).alias("avg_revenue_per_invoice"), 
+        col("Country").first().alias("country")
+
+    ])
+    .sort(["total_revenue"], 
+SortMultipleOptions::default().with_order_descending(true)
+).collect()?;
+
+Ok(customer_df)
+}
